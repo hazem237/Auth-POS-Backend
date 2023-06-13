@@ -1,5 +1,7 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../../database");
+const ProductCategory = require('./ProductCategoryModel');
+const UnitOfMeasure = require('./unitOfMeasureModel');
 
 const Product = sequelize.define("Product", {
   productId: {
@@ -23,6 +25,25 @@ const Product = sequelize.define("Product", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+  categoryId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: ProductCategory,
+      key: 'categoryId'
+    }
+  },
+  unitId: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: UnitOfMeasure,
+      key: 'unitId'
+    }
+  },
 });
+
+Product.belongsTo(ProductCategory, { foreignKey: 'categoryId' });
+Product.belongsTo(UnitOfMeasure, { foreignKey: 'unitId' });
 
 module.exports = Product;
