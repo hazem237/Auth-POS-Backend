@@ -2,9 +2,11 @@
   "name": "pos-backend",
   "version": "1.0.0",
   "description": "Express.js-based web application for managing products, product categories, and unit of measures. Provides CRUD operations for products, categories, and units.",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/app.js"
   },
   "author": "",
   "license": "ISC",

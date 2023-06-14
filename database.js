@@ -1,8 +1,8 @@
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 
 const sequelize = new Sequelize({
-  dialect: 'sqlite',
-  storage: './data/mydatabase.db', 
+  dialect: "sqlite",
+  storage: "./data/mydatabase.db",
 });
 
-module.exports = sequelize;
+export default sequelize;
