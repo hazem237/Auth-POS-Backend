@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+import express from "express";
+const unitOfMeasureRouter = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Unit of Measure page');
+unitOfMeasureRouter.get("/", (req, res) => {
+  res.send("Unit of Measure page");
 });
 
-module.exports = router;
+export default unitOfMeasureRouter;

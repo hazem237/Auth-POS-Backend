@@ -1,16 +1,14 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../database');
+import { DataTypes } from "sequelize";
+import sequelize from "../../database";
 
-const ProductCategory = sequelize.define('ProductCategory', {
+export const ProductCategory = sequelize.define("ProductCategory", {
   categoryId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   categoryName: {
     type: DataTypes.STRING,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
-
-module.exports = ProductCategory;

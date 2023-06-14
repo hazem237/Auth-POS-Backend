@@ -1,9 +1,9 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../../database");
-const ProductCategory = require('./ProductCategoryModel');
-const UnitOfMeasure = require('./unitOfMeasureModel');
+import { DataTypes } from "sequelize";
+import sequelize from "../../database";
+import { ProductCategory } from "./ProductCategoryModel";
+import { UnitOfMeasure } from "./unitOfMeasureModel";
 
-const Product = sequelize.define("Product", {
+export const Product = sequelize.define("Product", {
   productId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -30,20 +30,19 @@ const Product = sequelize.define("Product", {
     allowNull: false,
     references: {
       model: ProductCategory,
-      key: 'categoryId'
-    }
+      key: "categoryId",
+    },
   },
   unitId: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
       model: UnitOfMeasure,
-      key: 'unitId'
-    }
+      key: "unitId",
+    },
   },
 });
 
-Product.belongsTo(ProductCategory, { foreignKey: 'categoryId' });
-Product.belongsTo(UnitOfMeasure, { foreignKey: 'unitId' });
+Product.belongsTo(ProductCategory, { foreignKey: "categoryId" });
+Product.belongsTo(UnitOfMeasure, { foreignKey: "unitId" });
 
-module.exports = Product;

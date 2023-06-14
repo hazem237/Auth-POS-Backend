@@ -1,24 +1,22 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../../database');
+import { DataTypes } from "sequelize";
+import sequelize from "../../database";
 
-const UnitOfMeasure = sequelize.define('UnitOfMeasure', {
+export const UnitOfMeasure = sequelize.define("UnitOfMeasure", {
   unitId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: true,
   },
   unitName: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   baseUnit: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
   },
   conversionFactor: {
     type: DataTypes.FLOAT,
-    allowNull: false
-  }
+    allowNull: false,
+  },
 });
-
-module.exports = UnitOfMeasure;

@@ -1,8 +1,8 @@
-const express = require('express');
-const router = express.Router();
+import express from "express";
+const productCategoriesRouter = express.Router();
 
-router.get('/', (req, res) => {
-  res.send('Product Categories page');
+productCategoriesRouter.get("/", (req, res) => {
+  res.send("Product Categories page");
 });
 
-module.exports = router;
+export default productCategoriesRouter;
