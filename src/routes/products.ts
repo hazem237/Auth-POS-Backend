@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { Product } from "../model/productModel";
+import { Product, ProductCreationAttributes } from "../model/productModel";
 const productsRouter = Router();
 
 //Retrive all products
@@ -7,7 +7,7 @@ productsRouter.get("/", async (req: Request, res: Response) => {
   try {
     const products = await Product.findAll();
     res.json(products);
-    console.log("Products have been Retrived")
+    console.log("Products have been Retrived");
   } catch (error) {
     res.status(500).json({ error: "Server Error" });
   }
@@ -20,7 +20,7 @@ productsRouter.get("/:productId", async (req: Request, res: Response) => {
     const product = await Product.findByPk(productId);
     if (product) {
       res.json(product);
-      console.log("Single product have been Retrived")
+      console.log("Single product have been Retrived");
     } else {
       res.status(404).json({ error: "Product not found" });
     }
@@ -31,7 +31,24 @@ productsRouter.get("/:productId", async (req: Request, res: Response) => {
 
 //Post a new product
 productsRouter.post("/", async (req: Request, res: Response) => {
-  const { name, code, image, price, categoryId, unitId } = req.body;
+  const {
+    name,
+    code,
+    image,
+    price,
+    categoryId,
+    unitId,
+  }: ProductCreationAttributes = req.body;
+  if (
+    typeof name !== "string" ||
+    typeof code !== "string" ||
+    (image !== undefined && typeof image !== "string") ||
+    typeof price !== "number" ||
+    typeof categoryId !== "number" ||
+    typeof unitId !== "number"
+  ) {
+    return res.status(400).json({ error: "Invalid data types" });
+  }
   try {
     const product = await Product.create({
       name,
@@ -42,7 +59,7 @@ productsRouter.post("/", async (req: Request, res: Response) => {
       unitId,
     });
     res.status(201).json(product);
-    console.log("The product has been added successfully")
+    console.log("The product has been added successfully");
   } catch (error) {
     res.status(500).json({ error: "Server Error" });
   }
@@ -51,13 +68,30 @@ productsRouter.post("/", async (req: Request, res: Response) => {
 //Update a specific product based on product id
 productsRouter.put("/:productId", async (req: Request, res: Response) => {
   const productId = req.params.productId;
-  const { name, code, image, price, categoryId, unitId } = req.body;
+  const {
+    name,
+    code,
+    image,
+    price,
+    categoryId,
+    unitId,
+  }: ProductCreationAttributes = req.body;
+  if (
+    typeof name !== "string" ||
+    typeof code !== "string" ||
+    (image !== undefined && typeof image !== "string") ||
+    typeof price !== "number" ||
+    typeof categoryId !== "number" ||
+    typeof unitId !== "number"
+  ) {
+    return res.status(400).json({ error: "Invalid data types" });
+  }
   try {
     const product = await Product.findByPk(productId);
     if (product) {
       await product.update({ name, code, image, price, categoryId, unitId });
       res.json(product);
-      console.log("The product has been updated successfully")
+      console.log("The product has been updated successfully");
     } else {
       res.status(404).json({ error: "Product not found" });
     }

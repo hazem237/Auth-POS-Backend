@@ -6,7 +6,7 @@ interface ProductCategoryAttributes {
   categoryName: string;
 }
 
-interface ProductCategoryCreationAttributes extends Optional<ProductCategoryAttributes, 'categoryId'> {}
+export interface ProductCategoryCreationAttributes extends Optional<ProductCategoryAttributes, 'categoryId'> {}
 
 class ProductCategory extends Model<ProductCategoryAttributes, ProductCategoryCreationAttributes>
   implements ProductCategoryAttributes {

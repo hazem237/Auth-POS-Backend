@@ -8,7 +8,7 @@ interface UnitOfMeasureAttributes {
   conversionFactor: number;
 }
 
-interface UnitOfMeasureCreationAttributes extends Optional<UnitOfMeasureAttributes, 'unitId'> {}
+export interface UnitOfMeasureCreationAttributes extends Optional<UnitOfMeasureAttributes, 'unitId'> {}
 
 class UnitOfMeasure extends Model<UnitOfMeasureAttributes, UnitOfMeasureCreationAttributes>
   implements UnitOfMeasureAttributes {

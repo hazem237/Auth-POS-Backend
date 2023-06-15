@@ -13,7 +13,7 @@ interface ProductAttributes {
   unitId: number;
 }
 
-interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> {}
+export interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> {}
 
 class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
   public productId!: number;
