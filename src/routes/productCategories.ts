@@ -37,7 +37,7 @@ productCategoriesRouter.post("/", async (req: Request, res: Response) => {
   const { categoryName } = req.body;
   try {
     const newCategory = await ProductCategory.create({ categoryName });
-    res.status(201).json(newCategory);
+    res.status(201).json(newCategory).send("created successfully");
   } catch (error) {
     res.status(500).json({ error: "Server Error" });
   }
