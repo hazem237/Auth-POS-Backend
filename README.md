@@ -132,3 +132,54 @@ Use the provided API endpoints to manage products, product categories, and unit 
 > - Parameters:
 >   - `categoryId` (number) - The ID of the product category.
 > - Response: Returns a success message if the product category is deleted successfully, or an error message if not found.
+
+## Unit of Measures
+
+> #### Retrieve all unit of measures
+>
+> - Endpoint: `/unit-of-measures`
+> - Method: GET
+> - Description: Retrieves all unit of measures.
+> - Response: Returns an array of unit of measure objects.
+
+> #### Retrieve a specific unit of measure
+>
+> - Endpoint: `/unit-of-measures/:unitId`
+> - Method: GET
+> - Description: Retrieves a specific unit of measure based on the provided unitId.
+> - Parameters:
+>   - `unitId` (number) - The ID of the unit of measure.
+> - Response: Returns the unit of measure object if found, or an error message if not found.
+
+> #### Create a new unit of measure
+>
+> - Endpoint: `/unit-of-measures`
+> - Method: POST
+> - Description: Creates a new unit of measure.
+> - Request Body:
+>   - `unitName` (string) - The name of the unit of measure.
+>   - `baseUnit` (string) - The base unit of measure.
+>   - `conversionFactor` (number) - The conversion factor of the unit of measure.
+> - Response: Returns the created unit of measure object if successful, or an error message if unsuccessful.
+
+> #### Update a specific unit of measure
+>
+> - Endpoint: `/unit-of-measures/:unitId`
+> - Method: PUT
+> - Description: Updates a specific unit of measure based on the provided unitId.
+> - Parameters:
+>   - `unitId` (number) - The ID of the unit of measure.
+> - Request Body:
+>   - `unitName` (string) - The updated name of the unit of measure.
+>   - `baseUnit` (string) - The updated base unit of measure.
+>   - `conversionFactor` (number) - The updated conversion factor of the unit of measure.
+> - Response: Returns the updated unit of measure object if successful, or an error message if unsuccessful.
+
+> #### Delete a specific unit of measure
+>
+> - Endpoint: `/unit-of-measures/:unitId`
+> - Method: DELETE
+> - Description: Deletes a specific unit of measure based on the provided unitId.
+> - Parameters:
+>   - `unitId` (number) - The ID of the unit of measure.
+> - Response: Returns a success message if the unit of measure is deleted successfully, or an error message if not found.
