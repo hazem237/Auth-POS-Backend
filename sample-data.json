@@ -1,0 +1,72 @@
+{
+  "categories": [
+    {
+      "categoryName": "Electronics"
+    },
+    {
+      "categoryName": "Clothing"
+    },
+    {
+      "categoryName": "Home & Kitchen"
+    }
+  ],
+  "unitsOfMeasure": [
+    {
+      "unitName": "Piece",
+      "baseUnit": "Piece",
+      "conversionFactor": 1
+    },
+    {
+      "unitName": "Kilogram",
+      "baseUnit": "Gram",
+      "conversionFactor": 1000
+    },
+    {
+      "unitName": "Meter",
+      "baseUnit": "Centimeter",
+      "conversionFactor": 100
+    }
+  ],
+  "products": [
+    {
+      "name": "Macbook pro",
+      "code": "LT001",
+      "image": "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/mbp-spacegray-select-202206?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1664497359481",
+      "price": 999,
+      "categoryId": 1,
+      "unitId": 1
+    },
+    {
+      "name": "T-Shirt",
+      "code": "TS001",
+      "image": "https://zajo.bwcdn.net/media/2022/06/1/4/sk-sven-t-shirt-ss-14441.jpg",
+      "price": 29.99,
+      "categoryId": 2,
+      "unitId": 1
+    },
+    {
+      "name": "Smartphone",
+      "code": "SP001",
+      "image": "https://opsg-img-cdn-gl.heytapimg.com/epb/202302/15/SrtL7TwcCqYXBAln.png",
+      "price": 699,
+      "categoryId": 1,
+      "unitId": 1
+    },
+    {
+      "name": "Chair",
+      "code": "CH001",
+      "image": "https://www.ikea.com/us/en/images/products/lerhamn-chair-black-brown-vittaryd-beige__0728160_pe736117_s5.jpg?f=s",
+      "price": 149.99,
+      "categoryId": 3,
+      "unitId": 1
+    },
+    {
+      "name": "Apples",
+      "code": "AP001",
+      "image": "https://www.applesfromny.com/wp-content/uploads/2020/05/20Ounce_NYAS-Apples2.png",
+      "price": 2.99,
+      "categoryId": 3,
+      "unitId": 2
+    }
+  ]
+}

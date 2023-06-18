@@ -3,11 +3,12 @@ import productsRouter from "./routes/products.js";
 import productCategoriesRouter from "./routes/productCategories.js";
 import unitOfMeasureRouter from "./routes/unitOfMeasure.js";
 import sequelize from "../database.js";
+import { seedDatabase } from "../seed.js";
 const app = express();
 const port = 5050;
 app.use(express.json());
 
-sequelize.sync().then(() => console.log("database is ready "));
+sequelize.sync().then(() => seedDatabase());
 app.use("/products", productsRouter);
 app.use("/product-categories", productCategoriesRouter);
 app.use("/unit-of-measure", unitOfMeasureRouter);
