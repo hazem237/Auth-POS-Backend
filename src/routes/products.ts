@@ -1,9 +1,10 @@
 import { Router, Request, Response } from "express";
 import { Product, ProductCreationAttributes } from "../model/productModel";
+import { authenticateToken } from "./auth";
 const productsRouter = Router();
 
 //Retrive all products
-productsRouter.get("/", async (req: Request, res: Response) => {
+productsRouter.get("/", authenticateToken,async (req: Request, res: Response) => {
   try {
     const products = await Product.findAll();
     res.json(products);

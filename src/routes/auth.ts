@@ -1,9 +1,15 @@
-import { Router, Request, Response } from "express";
+import { Router, Request, Response, NextFunction } from "express";
 import { User } from "../model/userModel";
 import bcrypt from "bcrypt";
 import Joi from "joi";
+import jwt from "jsonwebtoken";
 const authRouter = Router();
+import dotenv from "dotenv";
+dotenv.config();
 
+interface AuthenticatedRequest extends Request {
+  user?: any;
+}
 const userSchema = Joi.object({
   userName: Joi.string().required(),
   email: Joi.string().email().required(),
@@ -38,21 +44,46 @@ authRouter.post("/sign-up", async (req: Request, res: Response) => {
   }
 });
 
-authRouter.post("/users/login", async (req, res) => {
+authRouter.post("/login", async (req, res) => {
   const { email } = req.body;
   const existingUser = await User.findOne({ where: { email: email } });
   if (existingUser == null) {
     return res.status(400).send("Cannot find user");
   }
   try {
-    if(await bcrypt.compare(req.body.password, existingUser.password)) {
-      res.send('Success')
+    if (await bcrypt.compare(req.body.password, existingUser.password)) {
+      res.json({ accessToken: generateAccessToken(existingUser) });
     } else {
-      res.send('Not Allowed')
+      res.send("Password is incorrect");
     }
-  } catch {
-    res.status(500).send()
+  } catch (err) {
+    res.status(500).json(err);
   }
 });
+
+function generateAccessToken(user: User) {
+  return jwt.sign(user.userName, process.env.ACCESS_TOKEN_SECRET!);
+}
+
+export function authenticateToken(
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1];
+  if (token == null) return res.sendStatus(401);
+
+  jwt.verify(
+    token,
+    process.env.ACCESS_TOKEN_SECRET!,
+    (err, user: string | any) => {
+      console.log(err);
+      if (err) return res.sendStatus(403);
+      req.user = user;
+      next();
+    }
+  );
+}
 
 export default authRouter;
