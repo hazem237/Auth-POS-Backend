@@ -3,20 +3,18 @@ import { User } from "../model/userModel";
 import bcrypt from "bcrypt";
 import Joi from "joi";
 import jwt from "jsonwebtoken";
+
 const authRouter = Router();
 import dotenv from "dotenv";
+import { generateAccessToken, generateRefreshToken } from "../auth/auth";
 dotenv.config();
 
-interface AuthenticatedRequest extends Request {
-  user?: any;
-}
 const userSchema = Joi.object({
   userName: Joi.string().required(),
   email: Joi.string().email().required(),
   password: Joi.string().min(5).max(30),
 });
 
-// Register a new user
 authRouter.post("/sign-up", async (req: Request, res: Response) => {
   try {
     const { error } = userSchema.validate(req.body);
@@ -52,38 +50,17 @@ authRouter.post("/login", async (req, res) => {
   }
   try {
     if (await bcrypt.compare(req.body.password, existingUser.password)) {
-      res.json({ accessToken: generateAccessToken(existingUser) });
+      res.json({
+         accessToken: generateAccessToken(existingUser)
+      });
     } else {
       res.send("Password is incorrect");
     }
   } catch (err) {
-    res.status(500).json(err);
+    res.status(500).send("Server error");
   }
 });
 
-function generateAccessToken(user: User) {
-  return jwt.sign(user.userName, process.env.ACCESS_TOKEN_SECRET!);
-}
 
-export function authenticateToken(
-  req: AuthenticatedRequest,
-  res: Response,
-  next: NextFunction
-) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1];
-  if (token == null) return res.sendStatus(401);
-
-  jwt.verify(
-    token,
-    process.env.ACCESS_TOKEN_SECRET!,
-    (err, user: string | any) => {
-      console.log(err);
-      if (err) return res.sendStatus(403);
-      req.user = user;
-      next();
-    }
-  );
-}
 
 export default authRouter;

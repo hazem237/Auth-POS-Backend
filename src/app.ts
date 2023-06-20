@@ -4,7 +4,7 @@ import productCategoriesRouter from "./routes/productCategories.js";
 import unitOfMeasureRouter from "./routes/unitOfMeasure.js";
 import sequelize from "../database.js";
 import { seedDatabase } from "../seed.js";
-import authRouter from "./routes/auth.js";
+import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/users.js";
 import { User } from "./model/userModel.js";
 const app = express();

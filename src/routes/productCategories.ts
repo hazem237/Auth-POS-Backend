@@ -3,10 +3,11 @@ import {
   ProductCategory,
   ProductCategoryCreationAttributes,
 } from "../model/ProductCategoryModel";
+import { authenticateToken } from "../auth/auth";
 const productCategoriesRouter = Router();
 
 //Retrive all categories
-productCategoriesRouter.get("/", async (req: Request, res: Response) => {
+productCategoriesRouter.get("/", authenticateToken,async (req: Request, res: Response) => {
   try {
     const categories = await ProductCategory.findAll();
     res.json(categories);
@@ -19,6 +20,7 @@ productCategoriesRouter.get("/", async (req: Request, res: Response) => {
 //Bring a specific category based on category id
 productCategoriesRouter.get(
   "/:categoryId",
+  authenticateToken,
   async (req: Request, res: Response) => {
     const categoryId = req.params.categoryId;
     try {
@@ -36,7 +38,7 @@ productCategoriesRouter.get(
 );
 
 //Post a new category
-productCategoriesRouter.post("/", async (req: Request, res: Response) => {
+productCategoriesRouter.post("/", authenticateToken,async (req: Request, res: Response) => {
   const { categoryName }: ProductCategoryCreationAttributes = req.body;
   if (typeof categoryName !== "string") {
     return res.status(400).json({ error: "Invalid data types" });
@@ -57,6 +59,7 @@ productCategoriesRouter.post("/", async (req: Request, res: Response) => {
 //Update a specific product based on product id
 productCategoriesRouter.put(
   "/:categoryId",
+  authenticateToken,
   async (req: Request, res: Response) => {
     const categoryId = req.params.categoryId;
     const { categoryName }: ProductCategoryCreationAttributes = req.body;
@@ -81,6 +84,7 @@ productCategoriesRouter.put(
 //Delete a specific product based on product id
 productCategoriesRouter.delete(
   "/:categoryId",
+  authenticateToken,
   async (req: Request, res: Response) => {
     const categoryId = req.params.categoryId;
 
