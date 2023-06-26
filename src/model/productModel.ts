@@ -1,24 +1,30 @@
-import { DataTypes, Model, Optional } from 'sequelize';
-import sequelize from '../../database';
-import { ProductCategory } from './ProductCategoryModel';
-import { UnitOfMeasure } from './unitOfMeasureModel';
+import { DataTypes, Model, Optional } from "sequelize";
+import sequelize from "../../database";
+import { ProductCategory } from "./ProductCategoryModel";
+import { UnitOfMeasure } from "./unitOfMeasureModel";
 
 interface ProductAttributes {
   productId: number;
   name: string;
   code: string;
+  quantity: number;
   image?: string;
   price: number;
   categoryId: number;
   unitId: number;
 }
 
-export interface ProductCreationAttributes extends Optional<ProductAttributes, 'productId'> {}
+export interface ProductCreationAttributes
+  extends Optional<ProductAttributes, "productId"> {}
 
-class Product extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
+class Product
+  extends Model<ProductAttributes, ProductCreationAttributes>
+  implements ProductAttributes
+{
   public productId!: number;
   public name!: string;
   public code!: string;
+  public quantity!: number;
   public image?: string;
   public price!: number;
   public categoryId!: number;
@@ -41,6 +47,10 @@ Product.init(
       allowNull: false,
       unique: true,
     },
+    quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     image: {
       type: DataTypes.STRING,
     },
@@ -53,7 +63,7 @@ Product.init(
       allowNull: false,
       references: {
         model: ProductCategory,
-        key: 'categoryId',
+        key: "categoryId",
       },
     },
     unitId: {
@@ -61,17 +71,17 @@ Product.init(
       allowNull: false,
       references: {
         model: UnitOfMeasure,
-        key: 'unitId',
+        key: "unitId",
       },
     },
   },
   {
     sequelize,
-    modelName: 'Product',
+    modelName: "Product",
   }
 );
 
-Product.belongsTo(ProductCategory, { foreignKey: 'categoryId' });
-Product.belongsTo(UnitOfMeasure, { foreignKey: 'unitId' });
+Product.belongsTo(ProductCategory, { foreignKey: "categoryId" });
+Product.belongsTo(UnitOfMeasure, { foreignKey: "unitId" });
 
 export { Product };

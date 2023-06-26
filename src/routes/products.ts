@@ -34,6 +34,7 @@ productsRouter.post("/", async (req: Request, res: Response) => {
   const {
     name,
     code,
+    quantity,
     image,
     price,
     categoryId,
@@ -42,6 +43,7 @@ productsRouter.post("/", async (req: Request, res: Response) => {
   if (
     typeof name !== "string" ||
     typeof code !== "string" ||
+    typeof quantity !=="number"||
     (image !== undefined && typeof image !== "string") ||
     typeof price !== "number" ||
     typeof categoryId !== "number" ||
@@ -53,6 +55,7 @@ productsRouter.post("/", async (req: Request, res: Response) => {
     const product = await Product.create({
       name,
       code,
+      quantity,
       image,
       price,
       categoryId,
@@ -71,6 +74,7 @@ productsRouter.put("/:productId", async (req: Request, res: Response) => {
   const {
     name,
     code,
+    quantity,
     image,
     price,
     categoryId,
@@ -79,6 +83,7 @@ productsRouter.put("/:productId", async (req: Request, res: Response) => {
   if (
     typeof name !== "string" ||
     typeof code !== "string" ||
+    typeof quantity !=="number"||
     (image !== undefined && typeof image !== "string") ||
     typeof price !== "number" ||
     typeof categoryId !== "number" ||
@@ -89,7 +94,15 @@ productsRouter.put("/:productId", async (req: Request, res: Response) => {
   try {
     const product = await Product.findByPk(productId);
     if (product) {
-      await product.update({ name, code, image, price, categoryId, unitId });
+      await product.update({
+        name,
+        code,
+        quantity,
+        image,
+        price,
+        categoryId,
+        unitId,
+      });
       res.json(product);
       console.log("The product has been updated successfully");
     } else {

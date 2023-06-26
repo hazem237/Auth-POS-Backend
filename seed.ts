@@ -45,6 +45,7 @@ async function addData(data: Data) {
     await Product.create({
       name: product.name,
       code: product.code,
+      quantity:product.quantity,
       image: product.image,
       price: product.price,
       categoryId: product.categoryId,
