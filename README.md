@@ -55,6 +55,7 @@ Use the provided API endpoints to manage products, product categories, and unit 
 > - Request Body:
 >   - `name` (string) - The name of the product.
 >   - `code` (string) - The code of the product.
+>   - `quantity` (number) - The quantity of the product.
 >   - `image` (optional, string) - The image URL of the product.
 >   - `price` (number) - The price of the product.
 >   - `categoryId` (number) - The ID of the product category.
@@ -71,6 +72,7 @@ Use the provided API endpoints to manage products, product categories, and unit 
 > - Request Body:
 >   - `name` (string) - The updated name of the product.
 >   - `code` (string) - The updated code of the product.
+>   - `quantity` (number) - The quantity of the product.
 >   - `image` (optional, string) - The updated image URL of the product.
 >   - `price` (number) - The updated price of the product.
 >   - `categoryId` (number) - The updated ID of the product category.
@@ -183,3 +185,18 @@ Use the provided API endpoints to manage products, product categories, and unit 
 > - Parameters:
 >   - `unitId` (number) - The ID of the unit of measure.
 > - Response: Returns a success message if the unit of measure is deleted successfully, or an error message if not found.
+
+## Checkout
+
+> - Endpoint: `/checkout`
+> - Method: POST
+> - Description: Creates a new unit of measure.
+> - Request Body:
+>   - `products` (array, required): An array of objects representing the products in the shopping cart. Each product object should have the following properties:
+>      - `name` (string, required): The name of the product.
+>      - `code` (string, required): The unique code or identifier of the product.
+>      - `quantity` (number, required): The quantity of the product.
+>      - `price` (number, required): The price of the product.
+>   - `tax` (number, required): The tax rate to be applied to the total price.
+>   - `discount` (number, required): The discount rate to be applied to the total price.
+> - Response: Returns the totalPrice  if successful, or an error message if unsuccessful.
