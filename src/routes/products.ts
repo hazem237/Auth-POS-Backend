@@ -40,30 +40,29 @@ productsRouter.get(
 );
 
 //Post a new product
-productsRouter.post(
-  "/",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    const {
-      name,
-      code,
-      image,
-      price,
-      categoryId,
-      unitId,
-    }: ProductCreationAttributes = req.body;
-    if (
-      typeof name !== "string" ||
-      typeof code !== "string" ||
-      (image !== undefined && typeof image !== "string") ||
-      typeof price !== "number" ||
-      typeof categoryId !== "number" ||
-      typeof unitId !== "number"
-    ) {
-      return res.status(400).json({ error: "Invalid data types" });
-    }
-    try {
-      const product = await Product.create({
+productsRouter.post("/", async (req: Request, res: Response) => {
+  const {
+    name,
+    code,
+    quantity,
+    image,
+    price,
+    categoryId,
+    unitId,
+  }: ProductCreationAttributes = req.body;
+  if (
+    typeof name !== "string" ||
+    typeof code !== "string" ||
+    typeof quantity !=="number"||
+    (image !== undefined && typeof image !== "string") ||
+    typeof price !== "number" ||
+    typeof categoryId !== "number" ||
+    typeof unitId !== "number"
+  ) {
+    return res.status(400).json({ error: "Invalid data types" });
+  }
+  try {
+    const product = await Product.create({
         name,
         code,
         image,
@@ -80,37 +79,44 @@ productsRouter.post(
 );
 
 //Update a specific product based on product id
-productsRouter.put(
-  "/:productId",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    const productId = req.params.productId;
-    const {
-      name,
-      code,
-      image,
-      price,
-      categoryId,
-      unitId,
-    }: ProductCreationAttributes = req.body;
-    if (
-      typeof name !== "string" ||
-      typeof code !== "string" ||
-      (image !== undefined && typeof image !== "string") ||
-      typeof price !== "number" ||
-      typeof categoryId !== "number" ||
-      typeof unitId !== "number"
-    ) {
-      return res.status(400).json({ error: "Invalid data types" });
-    }
-    try {
-      const product = await Product.findByPk(productId);
-      if (product) {
-        await product.update({ name, code, image, price, categoryId, unitId });
-        res.json(product);
-        console.log("The product has been updated successfully");
-      } else {
-        res.status(404).json({ error: "Product not found" });
+productsRouter.put("/:productId", async (req: Request, res: Response) => {
+  const productId = req.params.productId;
+  const {
+    name,
+    code,
+    quantity,
+    image,
+    price,
+    categoryId,
+    unitId,
+  }: ProductCreationAttributes = req.body;
+  if (
+    typeof name !== "string" ||
+    typeof code !== "string" ||
+    typeof quantity !=="number"||
+    (image !== undefined && typeof image !== "string") ||
+    typeof price !== "number" ||
+    typeof categoryId !== "number" ||
+    typeof unitId !== "number"
+  ) {
+    return res.status(400).json({ error: "Invalid data types" });
+  }
+  try {
+    const product = await Product.findByPk(productId);
+    if (product) {
+      await product.update({
+        name,
+        code,
+        quantity,
+        image,
+        price,
+        categoryId,
+        unitId,
+      });
+      res.json(product);
+      console.log("The product has been updated successfully");
+    } else {
+      res.status(404).json({ error: "Product not found" });
       }
     } catch (error) {
       res.status(500).json({ error: "Server Error" });
