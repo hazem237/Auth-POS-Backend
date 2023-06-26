@@ -29,6 +29,34 @@ Use the provided API endpoints to manage products, product categories, and unit 
 
 # API Specifications
 
+## Authentication
+
+> #### Create a new user
+>
+> - Endpoint: `/sign-up`
+> - Method: POST
+> - Description: Creates a new user.
+> - Request Body:
+>   - `userName` (string) - The name of the user.
+>   - `email` (string) - The email of the user (must be as email format).
+>   - `password` (string) - The password of the usre (must be 5-length at least)
+> - Response: Returns the created user object if successful, or an error message if unsuccessful.
+
+> #### Login the user
+>
+> - Endpoint: `/login`
+> - Method: POST
+> - Description: Login the existed user
+> - Request Body:
+>   - `email` (string) - The email of the user 
+>   - `password` (string) - The password of the usre 
+> - Response: Returns the Access Token object if successful, or an error message if unsuccessful.
+
+### Important Notes
+
+- Ensure that the access token is included in every authenticated API request header .
+- Take note of token expiration and implement the necessary token refresh mechanism if applicable.
+
 ## Products
 
 > #### Retrieve all products
