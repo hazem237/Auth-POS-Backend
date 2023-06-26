@@ -65,6 +65,7 @@ productsRouter.post("/", async (req: Request, res: Response) => {
     const product = await Product.create({
         name,
         code,
+        quantity,
         image,
         price,
         categoryId,
