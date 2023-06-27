@@ -6,99 +6,107 @@ import {
 import { authenticateToken } from "../auth/auth";
 const unitOfMeasureRouter = Router();
 
-unitOfMeasureRouter.get(
-  "/",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    try {
-      const units = await UnitOfMeasure.findAll();
+unitOfMeasureRouter.get("/", async (req: Request, res: Response) => {
+  try {
+    const units = await UnitOfMeasure.findAll();
+    setTimeout(() => {
       res.json(units);
-    } catch (error) {
+    }, 3500);
+  } catch (error) {
+    setTimeout(() => {
       res.status(500).json({ error: "Server Error" });
-    }
+    }, 3500);
   }
-);
+});
 
-unitOfMeasureRouter.get(
-  "/:unitId",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    const unitId = req.params.unitId;
-    try {
-      const unit = await UnitOfMeasure.findByPk(unitId);
-      if (unit) {
+unitOfMeasureRouter.get("/:unitId", async (req: Request, res: Response) => {
+  const unitId = req.params.unitId;
+  try {
+    const unit = await UnitOfMeasure.findByPk(unitId);
+    if (unit) {
+      setTimeout(() => {
         res.json(unit);
-      } else {
+      }, 3500);
+    } else {
+      setTimeout(() => {
         res.status(404).json({ error: "Unit of measure not found" });
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Server Error" });
+      }, 3500);
     }
+  } catch (error) {
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
-);
+});
 
-unitOfMeasureRouter.post(
-  "/",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    const {
+unitOfMeasureRouter.post("/", async (req: Request, res: Response) => {
+  const {
+    unitName,
+    baseUnit,
+    conversionFactor,
+  }: UnitOfMeasureCreationAttributes = req.body;
+  if (
+    typeof unitName !== "string" ||
+    typeof baseUnit !== "string" ||
+    typeof conversionFactor !== "number"
+  ) {
+    setTimeout(() => {
+      return res.status(400).json({ error: "Invalid data types" });
+    }, 3500);
+  }
+  try {
+    const newUnit = await UnitOfMeasure.create({
       unitName,
       baseUnit,
       conversionFactor,
-    }: UnitOfMeasureCreationAttributes = req.body;
-    if (
-      typeof unitName !== "string" ||
-      typeof baseUnit !== "string" ||
-      typeof conversionFactor !== "number"
-    ) {
-      return res.status(400).json({ error: "Invalid data types" });
-    }
-    try {
-      const newUnit = await UnitOfMeasure.create({
-        unitName,
-        baseUnit,
-        conversionFactor,
-      });
+    });
+    setTimeout(() => {
       res.status(201).json({ message: "unit added successfully", newUnit });
-    } catch (error) {
+    }, 3500);
+  } catch (error) {
+    setTimeout(() => {
       res.status(500).json({ error: "Server Error" });
-    }
+    }, 3500);
   }
-);
+});
 
-unitOfMeasureRouter.put(
-  "/:unitId",
-  authenticateToken,
-  async (req: Request, res: Response) => {
-    const unitId = req.params.unitId;
-    const {
-      unitName,
-      baseUnit,
-      conversionFactor,
-    }: UnitOfMeasureCreationAttributes = req.body;
-    if (
-      typeof unitName !== "string" ||
-      typeof baseUnit !== "string" ||
-      typeof conversionFactor !== "number"
-    ) {
+unitOfMeasureRouter.put("/:unitId", async (req: Request, res: Response) => {
+  const unitId = req.params.unitId;
+  const {
+    unitName,
+    baseUnit,
+    conversionFactor,
+  }: UnitOfMeasureCreationAttributes = req.body;
+  if (
+    typeof unitName !== "string" ||
+    typeof baseUnit !== "string" ||
+    typeof conversionFactor !== "number"
+  ) {
+    setTimeout(() => {
       return res.status(400).json({ error: "Invalid data types" });
-    }
-    try {
-      const unit = await UnitOfMeasure.findByPk(unitId);
-      if (unit) {
-        unit.unitName = unitName;
-        unit.baseUnit = baseUnit;
-        unit.conversionFactor = conversionFactor;
-        await unit.save();
-        res.json({ message: "unit updated successfully", unit });
-      } else {
-        res.status(404).json({ error: "Unit of measure not found" });
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Server Error" });
-    }
+    }, 3500);
   }
-);
+  try {
+    const unit = await UnitOfMeasure.findByPk(unitId);
+    if (unit) {
+      unit.unitName = unitName;
+      unit.baseUnit = baseUnit;
+      unit.conversionFactor = conversionFactor;
+      await unit.save();
+      setTimeout(() => {
+        res.json({ message: "unit updated successfully", unit });
+      }, 3500);
+    } else {
+      setTimeout(() => {
+        res.status(404).json({ error: "Unit of measure not found" });
+      }, 3500);
+    }
+  } catch (error) {
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
+  }
+});
 
 unitOfMeasureRouter.delete(
   "/:unitId",
@@ -106,18 +114,23 @@ unitOfMeasureRouter.delete(
   async (req: Request, res: Response) => {
     const unitId = req.params.unitId;
 
-    try {
-      const unit = await UnitOfMeasure.findByPk(unitId);
-      if (unit) {
-        await unit.destroy();
+  try {
+    const unit = await UnitOfMeasure.findByPk(unitId);
+    if (unit) {
+      await unit.destroy();
+      setTimeout(() => {
         res.json({ message: "Unit of measure deleted successfully" });
-      } else {
+      }, 3500);
+    } else {
+      setTimeout(() => {
         res.status(404).json({ error: "Unit of measure not found" });
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Server Error" });
+      }, 3500);
     }
+  } catch (error) {
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
-);
+});
 
 export default unitOfMeasureRouter;

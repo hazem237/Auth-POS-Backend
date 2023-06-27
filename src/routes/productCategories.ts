@@ -10,10 +10,14 @@ const productCategoriesRouter = Router();
 productCategoriesRouter.get("/", authenticateToken,async (req: Request, res: Response) => {
   try {
     const categories = await ProductCategory.findAll();
-    res.json(categories);
-    console.log("categories have been Retrived");
+    setTimeout(() => {
+      res.json(categories);
+      console.log("categories have been Retrived");
+    }, 3500);
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
@@ -26,13 +30,19 @@ productCategoriesRouter.get(
     try {
       const category = await ProductCategory.findByPk(categoryId);
       if (category) {
-        res.json(category);
-        console.log("Single category have been Retrived");
+        setTimeout(() => {
+          res.json(category);
+          console.log("Single category have been Retrived");
+        }, 3500);
       } else {
-        res.status(404).json({ error: "category not found" });
+        setTimeout(() => {
+          res.status(404).json({ error: "category not found" });
+        }, 3500);
       }
     } catch (error) {
-      res.status(500).json({ error: "Server Error" });
+      setTimeout(() => {
+        res.status(500).json({ error: "Server Error" });
+      }, 3500);
     }
   }
 );
@@ -41,18 +51,24 @@ productCategoriesRouter.get(
 productCategoriesRouter.post("/", authenticateToken,async (req: Request, res: Response) => {
   const { categoryName }: ProductCategoryCreationAttributes = req.body;
   if (typeof categoryName !== "string") {
-    return res.status(400).json({ error: "Invalid data types" });
+    setTimeout(() => {
+      return res.status(400).json({ error: "Invalid data types" });
+    }, 3500);
   }
   try {
     const newCategory = await ProductCategory.create({ categoryName })
       .then(() => {
-        res
-          .status(201)
-          .json({ message: "Category added successfully", newCategory });
+        setTimeout(() => {
+          res
+            .status(201)
+            .json({ message: "Category added successfully", newCategory });
+        }, 3500);
       })
       .catch((err) => console.log(err));
   } catch (error) {
-    res.status(500).json({ error: "Server Error" }).end();
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
@@ -64,19 +80,27 @@ productCategoriesRouter.put(
     const categoryId = req.params.categoryId;
     const { categoryName }: ProductCategoryCreationAttributes = req.body;
     if (typeof categoryName !== "string") {
-      return res.status(400).json({ error: "Invalid data types" });
+      setTimeout(() => {
+        return res.status(400).json({ error: "Invalid data types" });
+      }, 3500);
     }
     try {
       const category = await ProductCategory.findByPk(categoryId);
       if (category) {
         category.categoryName = categoryName;
         await category.save();
-        res.json({ message: "Category Updated successfully", category });
+        setTimeout(() => {
+          res.json({ message: "Category Updated successfully", category });
+        }, 3500);
       } else {
-        res.status(404).json({ error: "Category not found" });
+        setTimeout(() => {
+          res.status(404).json({ error: "Category not found" });
+        }, 3500);
       }
     } catch (error) {
-      res.status(500).json({ error: "Server Error" });
+      setTimeout(() => {
+        res.status(500).json({ error: "Server Error" });
+      }, 3500);
     }
   }
 );
@@ -92,12 +116,18 @@ productCategoriesRouter.delete(
       const category = await ProductCategory.findByPk(categoryId);
       if (category) {
         await category.destroy();
-        res.json({ message: "Category deleted successfully" });
+        setTimeout(() => {
+          res.json({ message: "Category deleted successfully" });
+        }, 3500);
       } else {
-        res.status(404).json({ error: "Category not found" });
+        setTimeout(() => {
+          res.status(404).json({ error: "Category not found" });
+        }, 3500);
       }
     } catch (error) {
-      res.status(500).json({ error: "Server Error" });
+      setTimeout(() => {
+        res.status(500).json({ error: "Server Error" });
+      }, 3500);
     }
   }
 );
