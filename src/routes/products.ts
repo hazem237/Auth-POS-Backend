@@ -6,10 +6,14 @@ const productsRouter = Router();
 productsRouter.get("/", async (req: Request, res: Response) => {
   try {
     const products = await Product.findAll();
-    res.json(products);
-    console.log("Products have been Retrived");
+    setTimeout(() => {
+      res.json(products);
+      console.log("Products have been Retrived");
+    }, 3500);
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
@@ -19,13 +23,19 @@ productsRouter.get("/:productId", async (req: Request, res: Response) => {
   try {
     const product = await Product.findByPk(productId);
     if (product) {
-      res.json(product);
-      console.log("Single product have been Retrived");
+      setTimeout(() => {
+        res.json(product);
+        console.log("Single product have been Retrived");
+      }, 3500);
     } else {
-      res.status(404).json({ error: "Product not found" });
+      setTimeout(() => {
+        res.status(404).json({ error: "Product not found" });
+      }, 3500);
     }
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
@@ -43,13 +53,15 @@ productsRouter.post("/", async (req: Request, res: Response) => {
   if (
     typeof name !== "string" ||
     typeof code !== "string" ||
-    typeof quantity !=="number"||
+    typeof quantity !== "number" ||
     (image !== undefined && typeof image !== "string") ||
     typeof price !== "number" ||
     typeof categoryId !== "number" ||
     typeof unitId !== "number"
   ) {
-    return res.status(400).json({ error: "Invalid data types" });
+    setTimeout(() => {
+      return res.status(400).json({ error: "Invalid data types" });
+    }, 3500);
   }
   try {
     const product = await Product.create({
@@ -61,10 +73,14 @@ productsRouter.post("/", async (req: Request, res: Response) => {
       categoryId,
       unitId,
     });
-    res.status(201).json(product);
-    console.log("The product has been added successfully");
+    setTimeout(() => {
+      res.status(201).json(product);
+      console.log("The product has been added successfully");
+    }, 3500);
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
@@ -83,13 +99,15 @@ productsRouter.put("/:productId", async (req: Request, res: Response) => {
   if (
     typeof name !== "string" ||
     typeof code !== "string" ||
-    typeof quantity !=="number"||
+    typeof quantity !== "number" ||
     (image !== undefined && typeof image !== "string") ||
     typeof price !== "number" ||
     typeof categoryId !== "number" ||
     typeof unitId !== "number"
   ) {
-    return res.status(400).json({ error: "Invalid data types" });
+    setTimeout(() => {
+      return res.status(400).json({ error: "Invalid data types" });
+    }, 3500);
   }
   try {
     const product = await Product.findByPk(productId);
@@ -103,13 +121,19 @@ productsRouter.put("/:productId", async (req: Request, res: Response) => {
         categoryId,
         unitId,
       });
-      res.json(product);
-      console.log("The product has been updated successfully");
+      setTimeout(() => {
+        res.json(product);
+        console.log("The product has been updated successfully");
+      }, 3500);
     } else {
-      res.status(404).json({ error: "Product not found" });
+      setTimeout(() => {
+        res.status(404).json({ error: "Product not found" });
+      }, 3500);
     }
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
@@ -120,12 +144,18 @@ productsRouter.delete("/:productId", async (req: Request, res: Response) => {
     const product = await Product.findByPk(productId);
     if (product) {
       await product.destroy();
-      res.json({ message: "Product deleted successfully" });
+      setTimeout(() => {
+        res.json({ message: "Product deleted successfully" });
+      }, 3500);
     } else {
-      res.status(404).json({ error: "Product not found" });
+      setTimeout(() => {
+        res.status(404).json({ error: "Product not found" });
+      }, 3500);
     }
   } catch (error) {
-    res.status(500).json({ error: "Server Error" });
+    setTimeout(() => {
+      res.status(500).json({ error: "Server Error" });
+    }, 3500);
   }
 });
 
