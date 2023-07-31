@@ -8,6 +8,7 @@ import checkoutRouter from "./routes/checkout.js";
 import authRouter from "./routes/authRoutes.js";
 import userRouter from "./routes/users.js";
 import { User } from "./model/userModel.js";
+
 const app = express();
 const port = 5050;
 app.use(express.json());
@@ -20,6 +21,7 @@ app.use("/unit-of-measure", unitOfMeasureRouter);
 app.use("/checkout",checkoutRouter);
 //for development purpose
 app.use("/users", userRouter);
+
 
 // Start the server
 app.listen(port, () => {

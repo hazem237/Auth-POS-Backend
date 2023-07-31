@@ -1,8 +1,10 @@
 import { Router, Request, Response } from "express";
+
 import { authenticateToken } from "../auth/auth";
 const checkoutRouter = Router();
 
 checkoutRouter.post("/", authenticateToken,async (req: Request, res: Response) => {
+
   try {
     const { products, tax, discount } = req.body;
 
