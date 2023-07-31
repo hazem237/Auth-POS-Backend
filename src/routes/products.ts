@@ -1,5 +1,7 @@
 import { Router, Request, Response } from "express";
 import { Product, ProductCreationAttributes } from "../model/productModel";
+import { authenticateToken } from "../auth/auth";
+
 const productsRouter = Router();
 
 //Retrive all products

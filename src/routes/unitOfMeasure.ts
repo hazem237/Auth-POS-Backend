@@ -3,6 +3,7 @@ import {
   UnitOfMeasure,
   UnitOfMeasureCreationAttributes,
 } from "../model/unitOfMeasureModel";
+import { authenticateToken } from "../auth/auth";
 const unitOfMeasureRouter = Router();
 
 unitOfMeasureRouter.get("/", async (req: Request, res: Response) => {
@@ -107,8 +108,11 @@ unitOfMeasureRouter.put("/:unitId", async (req: Request, res: Response) => {
   }
 });
 
-unitOfMeasureRouter.delete("/:unitId", async (req: Request, res: Response) => {
-  const unitId = req.params.unitId;
+unitOfMeasureRouter.delete(
+  "/:unitId",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    const unitId = req.params.unitId;
 
   try {
     const unit = await UnitOfMeasure.findByPk(unitId);
